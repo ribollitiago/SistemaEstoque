@@ -15,7 +15,7 @@ public class ConnectionDB {
         try {
             return DriverManager.getConnection(url, usuario, senha);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao se conectar ao Banco de dados" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao se conectar ao Banco de dados: " + e.getMessage());
         }
         return null;
     }
