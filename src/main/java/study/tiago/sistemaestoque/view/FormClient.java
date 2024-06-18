@@ -18,13 +18,13 @@ import study.tiago.sistemaestoque.utilities.Utilities;
  */
 public class FormClient extends javax.swing.JFrame {
 
-   public void createList(){
+    public void createList() {
         ClientsDAO dao = new ClientsDAO();
         List<Clients> list = dao.createList();
-        
+
         DefaultTableModel dados = (DefaultTableModel) tableClientes.getModel();
         dados.setNumRows(0);
-        for(Clients c : list){
+        for (Clients c : list) {
             dados.addRow(new Object[]{
                 c.getId(),
                 c.getNome(),
@@ -43,7 +43,7 @@ public class FormClient extends javax.swing.JFrame {
             });
         }
     }
-   
+
     public FormClient() {
         initComponents();
     }
@@ -612,20 +612,47 @@ public class FormClient extends javax.swing.JFrame {
         obj.setBairro(txtBairro.getText());
         obj.setCidade(txtCidade.getText());
         obj.setEstado(cbUF.getSelectedItem().toString());
-        
+
         ClientsDAO dao = new ClientsDAO();
         dao.Salvar(obj);
-        
+
         Utilities util = new Utilities();
         util.ClearScreen(painelDados);
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
+        Clients obj = new Clients();
+        obj.setNome(txtNome.getText());
+        obj.setRg(txtRG.getText());
+        obj.setCpf(txtCPF.getText());
+        obj.setEmail(txtEmail.getText());
+        obj.setTelefone(txtTelefone.getText());
+        obj.setCelular(txtCelular.getText());
+        obj.setCep(txtCEP.getText());
+        obj.setEndereco(txtEndereco.getText());
+        obj.setNumero(Integer.valueOf(txtNumero.getText()));
+        obj.setComplemento(txtComplemento.getText());
+        obj.setBairro(txtBairro.getText());
+        obj.setCidade(txtCidade.getText());
+        obj.setEstado(cbUF.getSelectedItem().toString());
+        obj.setId(Integer.valueOf(txtCodigo.getText()));
+
+        ClientsDAO dao = new ClientsDAO();
+        dao.Editar(obj);
+
+        Utilities util = new Utilities();
+        util.ClearScreen(painelDados);        // TODO add your handling code here:
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        // TODO add your handling code here:
+        Clients obj = new Clients();
+        obj.setId(Integer.valueOf(txtCodigo.getText()));
+        ClientsDAO dao = new ClientsDAO();
+        
+        dao.Excluir(obj);
+        Utilities util = new Utilities();
+        util.ClearScreen(painelDados);
+        
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
@@ -638,13 +665,13 @@ public class FormClient extends javax.swing.JFrame {
 
     private void btnPesquisaNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaNomeActionPerformed
         String nome = "%" + txtPesquisaNome.getText() + "%";
-        
+
         ClientsDAO dao = new ClientsDAO();
         List<Clients> list = dao.filterList(nome);
-        
+
         DefaultTableModel dados = (DefaultTableModel) tableClientes.getModel();
         dados.setNumRows(0);
-        for(Clients c : list){
+        for (Clients c : list) {
             dados.addRow(new Object[]{
                 c.getId(),
                 c.getNome(),
@@ -673,14 +700,14 @@ public class FormClient extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCidadeActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-       
+
         String nome = txtNome.getText();
         Clients obj = new Clients();
         ClientsDAO dao = new ClientsDAO();
-        
-        obj =dao.SearchClients(nome);
-        
-        if(obj.getNome() != null){
+
+        obj = dao.SearchClients(nome);
+
+        if (obj.getNome() != null) {
             txtCodigo.setText(String.valueOf(obj.getId()));
             txtNome.setText(obj.getNome());
             txtRG.setText(obj.getRg());
@@ -695,9 +722,9 @@ public class FormClient extends javax.swing.JFrame {
             txtBairro.setText(obj.getBairro());
             txtCidade.setText(obj.getCidade());
             cbUF.setSelectedItem(obj.getEstado());
-        } else{
+        } else {
             JOptionPane.showMessageDialog(null, "Cliente não encontrado");
-        }       
+        }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -710,13 +737,13 @@ public class FormClient extends javax.swing.JFrame {
 
     private void txtPesquisaNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaNomeKeyReleased
         String nome = "%" + txtPesquisaNome.getText() + "%";
-        
+
         ClientsDAO dao = new ClientsDAO();
         List<Clients> list = dao.filterList(nome);
-        
+
         DefaultTableModel dados = (DefaultTableModel) tableClientes.getModel();
         dados.setNumRows(0);
-        for(Clients c : list){
+        for (Clients c : list) {
             dados.addRow(new Object[]{
                 c.getId(),
                 c.getNome(),
@@ -737,31 +764,31 @@ public class FormClient extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesquisaNomeKeyReleased
 
     private void txtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             String nome = txtNome.getText();
-        Clients obj = new Clients();
-        ClientsDAO dao = new ClientsDAO();
-        
-        obj =dao.SearchClients(nome);
-        
-        if(obj.getNome() != null){
-            txtCodigo.setText(String.valueOf(obj.getId()));
-            txtNome.setText(obj.getNome());
-            txtRG.setText(obj.getRg());
-            txtCPF.setText(obj.getCpf());
-            txtEmail.setText(obj.getEmail());
-            txtTelefone.setText(obj.getTelefone());
-            txtCelular.setText(obj.getCelular());
-            txtCEP.setText(obj.getCep());
-            txtEndereco.setText(obj.getEndereco());
-            txtNumero.setText(String.valueOf(obj.getNumero()));
-            txtComplemento.setText(obj.getComplemento());
-            txtBairro.setText(obj.getBairro());
-            txtCidade.setText(obj.getCidade());
-            cbUF.setSelectedItem(obj.getEstado());
-        } else{
-            JOptionPane.showMessageDialog(null, "Cliente não encontrado");
-        }
+            Clients obj = new Clients();
+            ClientsDAO dao = new ClientsDAO();
+
+            obj = dao.SearchClients(nome);
+
+            if (obj.getNome() != null) {
+                txtCodigo.setText(String.valueOf(obj.getId()));
+                txtNome.setText(obj.getNome());
+                txtRG.setText(obj.getRg());
+                txtCPF.setText(obj.getCpf());
+                txtEmail.setText(obj.getEmail());
+                txtTelefone.setText(obj.getTelefone());
+                txtCelular.setText(obj.getCelular());
+                txtCEP.setText(obj.getCep());
+                txtEndereco.setText(obj.getEndereco());
+                txtNumero.setText(String.valueOf(obj.getNumero()));
+                txtComplemento.setText(obj.getComplemento());
+                txtBairro.setText(obj.getBairro());
+                txtCidade.setText(obj.getCidade());
+                cbUF.setSelectedItem(obj.getEstado());
+            } else {
+                JOptionPane.showMessageDialog(null, "Cliente não encontrado");
+            }
         }
     }//GEN-LAST:event_txtNomeKeyPressed
 
