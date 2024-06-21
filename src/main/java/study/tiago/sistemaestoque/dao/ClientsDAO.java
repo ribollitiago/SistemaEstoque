@@ -133,7 +133,7 @@ public class ClientsDAO {
         return null;
     }
     
-    public List<Clients> createList(){
+    public List<Clients> CreateList(){
         List<Clients> list = new ArrayList<>();
         
         try {
@@ -168,7 +168,7 @@ public class ClientsDAO {
         return null;
     }
     
-    public List<Clients> filterList(String nome){
+    public List<Clients> FilterList(String nome){
         List<Clients> list = new ArrayList<>();
         
         try {
