@@ -60,9 +60,9 @@ public class EmployeeDAO {
         }
     }
     
-    public void Editar(Clients obj){
+    public void Editar(Employee obj){
         try {
-            String sql = "update tb_clientes set nome=?,rg=?,cpf=?,email=?,telefone=?,celular=?,cep=?,endereco=?,numero=?,complemento=?,bairro=?,cidade=?,estado=? where id=?";
+            String sql = "update tb_funcionarios set nome=?,rg=?,cpf=?,email=?, senha=?, cargo=?, nivel_acesso=?,telefone=?,celular=?,cep=?,endereco=?,numero=?,complemento=?,bairro=?,cidade=?,estado=? where id=?";
             
             PreparedStatement stmt = conn.prepareStatement(sql);
             
@@ -70,56 +70,62 @@ public class EmployeeDAO {
             stmt.setString(2,obj.getRg());
             stmt.setString(3,obj.getCpf());
             stmt.setString(4,obj.getEmail());
-            stmt.setString(5,obj.getTelefone());
-            stmt.setString(6,obj.getCelular());
-            stmt.setString(7,obj.getCep());
-            stmt.setString(8,obj.getEndereco());
-            stmt.setInt(9,obj.getNumero());
-            stmt.setString(10,obj.getComplemento());
-            stmt.setString(11,obj.getBairro());
-            stmt.setString(12,obj.getCidade());
-            stmt.setString(13,obj.getEstado());
-            stmt.setInt(14,obj.getId());
+            stmt.setString(5,obj.getSenha());
+            stmt.setString(6,obj.getCargo());
+            stmt.setString(7,obj.getNivelAcesso());
+            stmt.setString(8,obj.getTelefone());
+            stmt.setString(9,obj.getCelular());
+            stmt.setString(10,obj.getCep());
+            stmt.setString(11,obj.getEndereco());
+            stmt.setInt(12,obj.getNumero());
+            stmt.setString(13,obj.getComplemento());
+            stmt.setString(14,obj.getBairro());
+            stmt.setString(15,obj.getCidade());
+            stmt.setString(16,obj.getEstado());
+            stmt.setInt(17,obj.getId());
             
             stmt.execute();
             stmt.close();
             
-            JOptionPane.showMessageDialog(null, "Cliente editado com sucesso");
+            JOptionPane.showMessageDialog(null, "Funcionário editado com sucesso");
             
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao editar o cliente: " + e);
+            JOptionPane.showMessageDialog(null, "Erro ao editar o funcionário: " + e);
         }
     }
     
-    public void Excluir(Clients obj){
+    public void Excluir(Employee obj){
         try {
-            String sql = "delete from tb_clientes where id=?";
+            String sql = "delete from tb_funcionarios where id=?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1,obj.getId());
             
             stmt.execute();
             stmt.close();
             
-            JOptionPane.showMessageDialog(null, "Cliente excluido com sucesso");
+            JOptionPane.showMessageDialog(null, "Funcionário excluido com sucesso");
             
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao excluir o cliente: " + e);
+            JOptionPane.showMessageDialog(null, "Erro ao excluir o funcionário: " + e);
         }
     }
     
-    public Clients SearchClients(String nome){
+    public Employee SearchEmployee(String nome){
         try {
-            String sql = "select * from tb_clientes where nome =?";
+            String sql = "select * from tb_funcionarios where nome =?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, nome);
             ResultSet rs = stmt.executeQuery();
-            Clients obj = new Clients();
+            Employee obj = new Employee();
             if(rs.next()){
                 obj.setId(rs.getInt("id"));
                 obj.setNome(rs.getString("nome"));
                 obj.setRg(rs.getString("rg"));
                 obj.setCpf(rs.getString("cpf"));
                 obj.setEmail(rs.getString("email"));
+                obj.setSenha(rs.getString("senha"));
+                obj.setCargo(rs.getString("cargo"));
+                obj.setNivelAcesso(rs.getString("nivel_acesso"));
                 obj.setTelefone(rs.getString("telefone"));
                 obj.setCelular(rs.getString("celular"));
                 obj.setCep(rs.getString("cep"));
@@ -132,7 +138,7 @@ public class EmployeeDAO {
             }
             return obj;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao buscar cliente: "+ e);
+            JOptionPane.showMessageDialog(null, "Erro ao buscar funcionário: "+ e);
         }
         return null;
     }

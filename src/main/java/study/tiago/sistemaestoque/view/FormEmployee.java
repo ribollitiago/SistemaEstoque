@@ -718,9 +718,9 @@ public class FormEmployee extends javax.swing.JFrame {
     }//GEN-LAST:event_btnImprimirActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        Clients obj = new Clients();
+        Employee obj = new Employee();
         obj.setId(Integer.valueOf(txtCodigo.getText()));
-        ClientsDAO dao = new ClientsDAO();
+        EmployeeDAO dao = new EmployeeDAO();
 
         dao.Excluir(obj);
         Utilities util = new Utilities();
@@ -755,11 +755,14 @@ public class FormEmployee extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        Clients obj = new Clients();
+        Employee obj = new Employee();
         obj.setNome(txtNome.getText());
         obj.setRg(txtRG.getText());
         obj.setCpf(txtCPF.getText());
         obj.setEmail(txtEmail.getText());
+        obj.setSenha(txtSenha.getText());
+        obj.setCargo(txtCargo.getText());
+        obj.setNivelAcesso(cbNivel.getSelectedItem().toString());
         obj.setTelefone(txtTelefone.getText());
         obj.setCelular(txtCelular.getText());
         obj.setCep(txtCEP.getText());
@@ -770,7 +773,7 @@ public class FormEmployee extends javax.swing.JFrame {
         obj.setCidade(txtCidade.getText());
         obj.setEstado(cbUF.getSelectedItem().toString());
 
-        ClientsDAO dao = new ClientsDAO();
+        EmployeeDAO dao = new EmployeeDAO();
         dao.Salvar(obj);
 
         Utilities util = new Utilities();
@@ -829,10 +832,10 @@ public class FormEmployee extends javax.swing.JFrame {
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
 
         String nome = txtNome.getText();
-        Clients obj = new Clients();
-        ClientsDAO dao = new ClientsDAO();
+        Employee obj = new Employee();
+        EmployeeDAO dao = new EmployeeDAO();
 
-        obj = dao.SearchClients(nome);
+        obj = dao.SearchEmployee(nome);
 
         if (obj.getNome() != null) {
             txtCodigo.setText(String.valueOf(obj.getId()));
@@ -840,6 +843,9 @@ public class FormEmployee extends javax.swing.JFrame {
             txtRG.setText(obj.getRg());
             txtCPF.setText(obj.getCpf());
             txtEmail.setText(obj.getEmail());
+            txtSenha.setText(obj.getSenha());
+            txtCargo.setText(obj.getCargo());
+            cbNivel.setSelectedItem(obj.getNivelAcesso());
             txtTelefone.setText(obj.getTelefone());
             txtCelular.setText(obj.getCelular());
             txtCEP.setText(obj.getCep());
@@ -850,17 +856,17 @@ public class FormEmployee extends javax.swing.JFrame {
             txtCidade.setText(obj.getCidade());
             cbUF.setSelectedItem(obj.getEstado());
         } else {
-            JOptionPane.showMessageDialog(null, "Cliente não encontrado");
+            JOptionPane.showMessageDialog(null, "Funcionário não encontrado");
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void txtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             String nome = txtNome.getText();
-            Clients obj = new Clients();
-            ClientsDAO dao = new ClientsDAO();
+            Employee obj = new Employee();
+            EmployeeDAO dao = new EmployeeDAO();
 
-            obj = dao.SearchClients(nome);
+            obj = dao.SearchEmployee(nome);
 
             if (obj.getNome() != null) {
                 txtCodigo.setText(String.valueOf(obj.getId()));
@@ -868,6 +874,9 @@ public class FormEmployee extends javax.swing.JFrame {
                 txtRG.setText(obj.getRg());
                 txtCPF.setText(obj.getCpf());
                 txtEmail.setText(obj.getEmail());
+                txtSenha.setText(obj.getSenha());
+                txtCargo.setText(obj.getCargo());
+                cbNivel.setSelectedItem(obj.getNivelAcesso());
                 txtTelefone.setText(obj.getTelefone());
                 txtCelular.setText(obj.getCelular());
                 txtCEP.setText(obj.getCep());
@@ -878,7 +887,7 @@ public class FormEmployee extends javax.swing.JFrame {
                 txtCidade.setText(obj.getCidade());
                 cbUF.setSelectedItem(obj.getEstado());
             } else {
-                JOptionPane.showMessageDialog(null, "Cliente não encontrado");
+                JOptionPane.showMessageDialog(null, "Funcionário não encontrado");
             }
         }
     }//GEN-LAST:event_txtNomeKeyPressed
